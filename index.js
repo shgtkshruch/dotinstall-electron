@@ -2,7 +2,7 @@
 
 const {app, BrowserWindow, Menu, dialog} = require('electron');
 
-let mainWindow;
+let mainWindow, settingsWindow;
 
 let menuTemplate = [{
   label: 'MyApp',
@@ -23,6 +23,23 @@ function showAboutDialog() {
     buttons: ['OK'],
     message: 'About This App',
     detail: 'This app was created by @shgtkshruch'
+  });
+}
+
+function showSettingsWindow() {
+  settingsWindow = new BrowserWindow({
+    width: 600,
+    height: 400
+  });
+
+  settingsWindow.loadURL(`file://${__dirname}/settings.html`);
+
+  settingsWindow.webContents.openDevTools();
+
+  settingsWindow.show();
+
+  settingsWindow.on('closed', () => {
+    settingsWindow = null;
   });
 }
 
